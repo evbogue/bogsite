@@ -1,0 +1,19 @@
+body { 
+  font-family: 'Source Sans Pro', sans-serif;
+  background: #f5f5f5;
+  color: #333;
+}
+
+p {margin: 0;}
+
+a:link {
+  color: #007aa5;
+  text-decoration: none;
+}
+
+#container {
+  margin: 1em;
+  border-radius: .5em;
+  padding: 1ex;
+  background: white;
+}
