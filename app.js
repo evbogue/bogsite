@@ -2,6 +2,22 @@ import { h } from './lib/h.js'
 import { human } from './lib/human.js'
 import { open } from './sbog.js'
 
+const renderer = new marked.Renderer()
+
+renderer.link = function (href, title, text) {
+    if (href.length == 44 && !href.startsWith('http')) {
+    href  = 'https://bogbook.com/#' + href
+    return marked.Renderer.prototype.link.call(this, href, title, text);
+  } else {
+    return marked.Renderer.prototype.link.call(this, href, title, text);
+  }
+}
+
+marked.setOptions({
+  renderer: renderer
+})
+
+
 const pubkey = 'EVs6toXH1DdpDpHEA5qm1eXS6xtg7+dkNH2t0GjoUH0='
 
 const div = h('a', {href: 'https://bogbook.com/#' + pubkey}, [pubkey])
