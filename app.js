@@ -17,7 +17,6 @@ marked.setOptions({
   renderer: renderer
 })
 
-
 const pubkey = 'EVs6toXH1DdpDpHEA5qm1eXS6xtg7+dkNH2t0GjoUH0='
 
 const div = h('a', {href: 'https://bogbook.com/#' + pubkey}, [pubkey])
@@ -34,10 +33,11 @@ ws.onopen = async () => {
 
 ws.onmessage = async (m) => {
   const obj = JSON.parse(m.data)
+  console.log(obj)
   const opened = await open(obj.payload)
-  if (opened && obj.latest && obj.payload.substring(0, 44) === pubkey && !document.getElementById('message')) {
+  if (opened && obj.payload.substring(0, 44) === pubkey && !document.getElementById('message')) {
     div.textContent = obj.name
-    const messageDiv = h('div', {id: 'message', innerHTML: marked(obj.blob)})
+    const messageDiv = h('article', {id: 'message', innerHTML: marked(obj.blob)})
     container.insertBefore(h('a', {style: 'float: right', href: 'https://bogbook.com/#' + opened.hash}, [human(new Date(opened.timestamp))]), div)
     container.appendChild(messageDiv)
     document.body.appendChild(h('div', ['More on ↳ ', h('a', {href: 'https://bogbook.com/#' + pubkey}, ['Bogbook'])]))
