@@ -4,9 +4,8 @@ body {
   color: #333;
 }
 
-p {margin: 0;}
 
-a:link {
+a {
   color: #007aa5;
   text-decoration: none;
 }
@@ -16,4 +15,8 @@ a:link {
   border-radius: .5em;
   padding: 1ex;
   background: white;
+}
+
+#container p {
+  margin: 0;
 }

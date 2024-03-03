@@ -40,6 +40,6 @@ ws.onmessage = async (m) => {
     const messageDiv = h('article', {id: 'message', innerHTML: marked(obj.blob)})
     container.insertBefore(h('a', {style: 'float: right', href: 'https://bogbook.com/#' + opened.hash}, [human(new Date(opened.timestamp))]), div)
     container.appendChild(messageDiv)
-    document.body.appendChild(h('div', ['More on ↳ ', h('a', {href: 'https://bogbook.com/#' + pubkey}, ['Bogbook'])]))
+    container.after(h('div', ['More on ↳ ', h('a', {href: 'https://bogbook.com/#' + pubkey}, ['Bogbook'])]))
   }
 }
