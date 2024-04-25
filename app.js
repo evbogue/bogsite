@@ -37,7 +37,7 @@ ws.onmessage = async (m) => {
   const opened = await open(obj.payload)
   if (opened && obj.payload.substring(0, 44) === pubkey && !document.getElementById('message')) {
     div.textContent = obj.name
-    const messageDiv = h('article', {id: 'message', innerHTML: marked(obj.blob)})
+    const messageDiv = h('article', {id: 'message', innerHTML: marked(obj.text)})
     container.insertBefore(h('a', {style: 'float: right', href: 'https://bogbook.com/#' + opened.hash}, [human(new Date(opened.timestamp))]), div)
     container.appendChild(messageDiv)
     container.after(h('div', ['More on ↳ ', h('a', {href: 'https://bogbook.com/#' + pubkey}, ['Bogbook'])]))
