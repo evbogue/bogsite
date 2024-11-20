@@ -4,6 +4,7 @@ body {
   color: #333;
   max-width: 680px;
   margin-left: auto; margin-right: auto;
+  margin-bottom: 5em;
 }
 
 a {
