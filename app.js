@@ -1,5 +1,5 @@
 import { h } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/lib/h.js'
-import {embed} from 'https://esm.sh/gh/evbogue/bog-embed@e413bc1f06/mod.js'
+import {embed} from 'https://esm.sh/gh/evbogue/bog-embed@20b2c9b5cb/mod.js'
 const el = h('div')
 document.body.insertBefore(el, document.body.firstChild)
 embed('EvEscFEThxeGbGnbMeDL0kHVhTZ/sJz1hN1e8qjZo8c=', el)
