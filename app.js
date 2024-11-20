@@ -1,45 +1,21 @@
-import { h } from './lib/h.js'
-import { human } from './lib/human.js'
-import { open } from './sbog.js'
+import { h } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/lib/h.js'
+import {embed} from 'https://esm.sh/gh/evbogue/bog-embed@e413bc1f06/mod.js'
+const el = h('div')
+document.body.insertBefore(el, document.body.firstChild)
+embed('EvEscFEThxeGbGnbMeDL0kHVhTZ/sJz1hN1e8qjZo8c=', el)
 
-const renderer = new marked.Renderer()
+const input = h('input', {placeholder: 'Your phone or email please'})
+const textarea = h('textarea', {placeholder: 'Send a message to my phone'})
+const button = h('button', { onclick: () => {
+  if (textarea.value && input.value) {
+    fetch('https://ntfy.sh/evbogue', {
+      method: 'POST',
+      body: input.value + ' | ' + textarea.value
+    })
+    const got = document.getElementById('phonebuzz')
 
-renderer.link = function (href, title, text) {
-    if (href.length == 44 && !href.startsWith('http')) {
-    href  = 'https://bogbook.com/#' + href
-    return marked.Renderer.prototype.link.call(this, href, title, text);
-  } else {
-    return marked.Renderer.prototype.link.call(this, href, title, text);
-  }
-}
+    got.replaceWith(h('div', ['Sent! I received a message: "' + input.value + ' | ' + textarea.value + '"']))
+  } else {alert('Fill out all fields plz')}
+}}, ['Send urgent message'])
+document.body.appendChild(h('div', {id: 'phonebuzz'}, [input, textarea, button]))
 
-marked.setOptions({
-  renderer: renderer
-})
-
-const pubkey = 'EVs6toXH1DdpDpHEA5qm1eXS6xtg7+dkNH2t0GjoUH0='
-
-const div = h('a', {href: 'https://bogbook.com/#' + pubkey}, [pubkey])
-
-const container = document.getElementById('container')
-
-container.appendChild(div)
-
-const ws = new WebSocket('wss://bogbook.com')
-
-ws.onopen = async () => {
-  ws.send(pubkey)
-}
-
-ws.onmessage = async (m) => {
-  const obj = JSON.parse(m.data)
-  console.log(obj)
-  const opened = await open(obj.payload)
-  if (opened && obj.payload.substring(0, 44) === pubkey && !document.getElementById('message')) {
-    div.textContent = obj.name
-    const messageDiv = h('article', {id: 'message', innerHTML: marked(obj.text)})
-    container.insertBefore(h('a', {style: 'float: right', href: 'https://bogbook.com/#' + opened.hash}, [human(new Date(opened.timestamp))]), div)
-    container.appendChild(messageDiv)
-    container.after(h('div', ['More on ↳ ', h('a', {href: 'https://bogbook.com/#' + pubkey}, ['Bogbook'])]))
-  }
-}
