@@ -8,7 +8,6 @@
     <link rel='stylesheet' href='style.css' type='text/css' />
   </head>
   <body>
-    <div id='container'></div>
     <h1>Everett Bogue's Homepage</h1>
 
     <p>Hi! I'm Ev on the Internet. I live just outside of Chicago right now.</p>
@@ -34,7 +33,8 @@
   <script type='module'>
     import { h } from 'https://esm.sh/gh/evbogue/bogbookv4@02f96a104e/lib/h.js'
     import {embed} from 'https://esm.sh/gh/evbogue/bog-embed@e413bc1f06/mod.js'
-    const el = document.getElementById('container')
+    const el = h('div')
+    document.body.insertBefore(el, document.body.firstChild)
     embed('EvEscFEThxeGbGnbMeDL0kHVhTZ/sJz1hN1e8qjZo8c=', el)
 
     const input = h('input', {placeholder: 'Your phone or email please'})
